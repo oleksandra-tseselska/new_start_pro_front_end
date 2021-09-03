@@ -64,20 +64,26 @@ console.log('--/--/--/--/--');
 // Nomework 3
 
 function createCalculator(someNum) {
-    if(typeof someNum !== 'number') {
-      
-      return NaN;
+  if (validator(someNum) === true) {
+    return NaN;
+  }
+  function validator(validNum) {
+    if(typeof validNum !== 'number') {
+      return true;
     };
-
+  };
+  
   return {
-    add: (addNum) => typeof addNum !== 'number' ? NaN : someNum += addNum,
-    sub: (takeAwayNum) => typeof takeAwayNum !== 'number' ? NaN :  someNum -= takeAwayNum,
-    set: (newNum) => typeof newNum !== 'number' ? NaN :   someNum = newNum,
+    add: (addNum) => validator(addNum) ? NaN : someNum += addNum,
+    sub: (takeAwayNum) => validator(takeAwayNum) ? NaN :  someNum -= takeAwayNum,
+    set: (newNum) => validator(newNum) ? NaN :   someNum = newNum,
     get: () => someNum,
   };
 };
 
 const calculator = createCalculator(100);
+
+console.log(createCalculator('100'), 'NaN и значение 100 не менять');
 
 console.log(calculator.add(10), '110');
 console.log(calculator.add(10), '120');
@@ -85,7 +91,7 @@ console.log(calculator.sub(20), '100');
 console.log(calculator.sub('20'), 'NaN');
 
 console.log(calculator.set(20), '20');
-console.log(calculator.set('20'), 'NaN');
+console.log(calculator.set('20'), 'NaN и значение 20 не менять');
 console.log(calculator.add(10), '30');
 console.log(calculator.add(10), '40');
 
