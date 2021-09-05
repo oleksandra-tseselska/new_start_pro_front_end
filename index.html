@@ -8,7 +8,30 @@
   <title>Pro New Start</title>
 </head>
 <body>
-  
   <script src="./js/homework_1.js"></script>
+  <input
+    id="input"
+    type="text"
+    name="my-form-input"
+    placeholder="Write something"
+  >
+  <button>Add</button>
+  <script>
+  const ul = document.createElement('ul');
+  const button = document.querySelector('button');
+  const input = document.querySelector('input');
+
+  button.addEventListener('click', () => {
+    let li = document.createElement('li');
+    if(input.value !== '') {
+      document.body.prepend(ul);
+      document.body.querySelector('ul').append(li);
+      li.innerText = input.value;
+      input.value = null;
+    }
+  });
+  </script>
 </body>
 </html>
+
+
