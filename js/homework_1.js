@@ -64,19 +64,19 @@ console.log('--/--/--/--/--');
 // Nomework 3
 
 function createCalculator(someNum) {
-  if (validator(someNum) === true) {
+  if (isNumber(someNum) !== true) {
     return NaN;
   }
-  function validator(validNum) {
-    if(typeof validNum !== 'number') {
+  function isNumber(validNum) {
+    if(typeof validNum === 'number') {
       return true;
     };
   };
   
   return {
-    add: (addNum) => validator(addNum) ? NaN : someNum += addNum,
-    sub: (takeAwayNum) => validator(takeAwayNum) ? NaN :  someNum -= takeAwayNum,
-    set: (newNum) => validator(newNum) ? NaN :   someNum = newNum,
+    add: (addNum) => isNumber(addNum) ? someNum += addNum : NaN ,
+    sub: (takeAwayNum) => isNumber(takeAwayNum) ? someNum -= takeAwayNum : NaN,
+    set: (newNum) => isNumber(newNum) ? someNum = newNum : NaN,
     get: () => someNum,
   };
 };
