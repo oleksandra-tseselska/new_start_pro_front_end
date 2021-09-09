@@ -68,9 +68,7 @@ function createCalculator(someNum) {
     return NaN;
   }
   function isNumber(validNum) {
-    if(typeof validNum === 'number') {
-      return true;
-    };
+    return typeof validNum === 'number';
   };
   
   return {
