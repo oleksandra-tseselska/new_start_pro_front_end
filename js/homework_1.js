@@ -59,7 +59,7 @@ console.log(max([8]), 'one element test, must return 8');
 console.log(max([1, 8, 37, 5, 17]), '5 elements test, must return 37');
 console.log(max([8, 17]), '2 elements test, must return 17');
 
-
+console.log('--/--/--/--/--');
 // Mentoring homework 1
 
 const wizards = [
@@ -93,3 +93,45 @@ const wizards = [
   }, []);
 
   console.log(nameMastersHufflepuff);
+
+  console.log('--/--/--/--/--');
+// Nomework 3
+
+function createCalculator(someNum) {
+  if (isNumber(someNum) !== true) {
+    return NaN;
+  }
+  function isNumber(validNum) {
+    return typeof validNum === 'number';
+  };
+  
+  return {
+    add: (addNum) => isNumber(addNum) ? someNum += addNum : NaN ,
+    sub: (takeAwayNum) => isNumber(takeAwayNum) ? someNum -= takeAwayNum : NaN,
+    set: (newNum) => isNumber(newNum) ? someNum = newNum : NaN,
+    get: () => someNum,
+  };
+};
+
+const calculator = createCalculator(100);
+
+console.log(createCalculator('100'), 'NaN и значение 100 не менять');
+
+console.log(calculator.add(10), '110');
+console.log(calculator.add(10), '120');
+console.log(calculator.sub(20), '100');
+console.log(calculator.sub('20'), 'NaN');
+
+console.log(calculator.set(20), '20');
+console.log(calculator.set('20'), 'NaN и значение 20 не менять');
+console.log(calculator.add(10), '30');
+console.log(calculator.add(10), '40');
+
+console.log(calculator.add('qwe'), 'NaN и значение 40 не менять');
+console.log(calculator.add(true), 'NaN и значение 40 не менять');
+console.log(calculator.add(1953565346364098n), 'NaN и значение 40 не менять');
+console.log(createCalculator('100'), 'NaN и значение 40 не менять');
+
+console.log(calculator.get(), '40');
+
+console.log('--/--/--/--/--');
