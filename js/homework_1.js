@@ -58,3 +58,38 @@ console.log(max([100, 7000, 10, 8000, 20, 8001, 1000, 30, 2000, 40, 50]));
 console.log(max([8]), 'one element test, must return 8');
 console.log(max([1, 8, 37, 5, 17]), '5 elements test, must return 37');
 console.log(max([8, 17]), '2 elements test, must return 17');
+
+
+// Mentoring homework 1
+
+const wizards = [
+  {
+      name: 'Harry Potter',
+      house: 'Gryfindor'
+  },
+  {
+      name: 'Cedric Diggory',
+      house: 'Hufflepuff'
+  },
+  {
+      name: 'Tonks',
+      house: 'Hufflepuff'
+  },
+  {
+      name: 'Ronald Weasley',
+      house: 'Gryfindor'
+  },
+  {
+      name: 'Hermione Granger',
+      house: 'Gryfindor'
+  }];
+
+  let nameMastersHufflepuff = wizards.reduce(function MastersHufflepuff(result, name){
+    if(name.house === 'Hufflepuff') {
+      result.push(name.name);
+    }
+
+    return result;
+  }, []);
+
+  console.log(nameMastersHufflepuff);
