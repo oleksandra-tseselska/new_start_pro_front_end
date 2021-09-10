@@ -60,7 +60,41 @@ console.log(max([1, 8, 37, 5, 17]), '5 elements test, must return 37');
 console.log(max([8, 17]), '2 elements test, must return 17');
 
 console.log('--/--/--/--/--');
+// Mentoring homework 1
 
+const wizards = [
+  {
+      name: 'Harry Potter',
+      house: 'Gryfindor'
+  },
+  {
+      name: 'Cedric Diggory',
+      house: 'Hufflepuff'
+  },
+  {
+      name: 'Tonks',
+      house: 'Hufflepuff'
+  },
+  {
+      name: 'Ronald Weasley',
+      house: 'Gryfindor'
+  },
+  {
+      name: 'Hermione Granger',
+      house: 'Gryfindor'
+  }];
+
+  let nameMastersHufflepuff = wizards.reduce(function MastersHufflepuff(result, name){
+    if(name.house === 'Hufflepuff') {
+      result.push(name.name);
+    }
+
+    return result;
+  }, []);
+
+  console.log(nameMastersHufflepuff);
+
+  console.log('--/--/--/--/--');
 // Nomework 3
 
 function createCalculator(someNum) {
@@ -100,3 +134,4 @@ console.log(createCalculator('100'), 'NaN и значение 40 не менят
 
 console.log(calculator.get(), '40');
 
+console.log('--/--/--/--/--');
