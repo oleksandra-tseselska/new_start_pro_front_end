@@ -60,6 +60,8 @@ console.log(max([1, 8, 37, 5, 17]), '5 elements test, must return 37');
 console.log(max([8, 17]), '2 elements test, must return 17');
 
 console.log('--/--/--/--/--');
+
+
 // Mentoring homework 1
 
 const wizards = [
@@ -95,6 +97,8 @@ const wizards = [
   console.log(nameMastersHufflepuff);
 
   console.log('--/--/--/--/--');
+
+  
 // Nomework 3
 
 function createCalculator(someNum) {
