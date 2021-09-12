@@ -17,6 +17,50 @@
     placeholder="Write something"
   >
   <button id="button-add" class="btn-border">Add</button>
+  <table class="contact-list">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Second Name</th>
+        <th>Phone</th>
+        <th>To Do Something</th>
+      </tr>
+    </thead>
+    <tbody id="contacts-list-body">
+
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>
+          <input 
+            id="contacts-input"
+            type="text"
+            name="first"
+            placeholder="Add First Name"
+          >
+        </td>
+        <td>
+          <input 
+            id="contacts-input"
+            type="text"
+            name="second"
+            placeholder="Add Second Name"
+          >
+        </td>
+        <td>
+          <input 
+            id="contacts-input"
+            type="number"
+            name="phone"
+            placeholder="Add Phone"
+          >
+        </td>
+        <td>
+          <button id="btn-add-contact" class="btn-border">Add Contact</button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 
   <script type="text/template" id="toDoListTemplate">
     <li class="todo-item">
@@ -24,6 +68,17 @@
       <button class="btn-done"></button>
       <button class="btn-bin"></button>
     </li>
+  </script>
+
+  <script type="text/template" id="contactListTemplate">
+    <tr id="contact-list">
+      <td>{{firstName}}</td>
+      <td>{{secondName}}</td>
+      <td>{{phone}}</td>
+      <td>
+        <button class="btn-bin-contact"></button>
+      </td>
+    </tr>
   </script>
   <script src="./homework_1.js"></script>
 </body>
