@@ -190,3 +190,55 @@ function addItem(input) {
 function isEmpty(value) {
   return value === '';
 }
+
+
+// Homework 'Contact list'
+
+const templateContact = document.querySelector('#contactListTemplate').innerHTML;
+const BTN_ADD_CONTACT = document.querySelector('#btn-add-contact');
+const BTN_BIN_CONTACT = 'btn-bin-contact';
+const CONTACTS_LIST_ITEM = '#contact-list';
+const inputs = document.querySelectorAll('#contacts-input');
+const contactsList = document.querySelector('#contacts-list-body');
+const contactsListItem = document.querySelector('#contact-list');
+
+BTN_ADD_CONTACT.addEventListener('click', addContactList);
+contactsList.addEventListener('click', delContactList);
+
+function addContactList() {
+  addContacts();
+};
+
+function addContacts() {
+  const contacts = {};
+
+  for(let input of inputs) {
+    contacts[input.name] = input.value;
+  };
+
+  if (contacts.first === '' || contacts.second === '' || contacts.phone === '') {
+    alert('Add all contacts, please');
+    return;
+  }; 
+
+  const contactsItems = templateContact
+        .replace('{{firstName}}', contacts.first)
+        .replace('{{secondName}}', contacts.second)
+        .replace('{{phone}}', contacts.phone);
+
+  contactsList.insertAdjacentHTML('beforeend', contactsItems);
+  resetInputs();
+}
+
+function resetInputs() {
+  for(let input of inputs) {
+    input.value = '';
+  };
+};
+
+function delContactList(e) {
+  if (e.target.classList.contains(BTN_BIN_CONTACT)){
+    e.target.closest(CONTACTS_LIST_ITEM).remove();
+  }
+};
+
