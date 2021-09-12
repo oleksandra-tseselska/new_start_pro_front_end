@@ -139,3 +139,54 @@ console.log(createCalculator('100'), 'NaN и значение 40 не менят
 console.log(calculator.get(), '40');
 
 console.log('--/--/--/--/--');
+
+
+// Homework 'TO DO list'
+
+const ul = document.createElement('ul');
+const template = document.querySelector('#toDoListTemplate').innerHTML;
+const BTN_ADD = document.querySelector('#button-add');
+const input = document.querySelector('#input');
+const BTN_DONE = 'btn-done';
+const BTN_BIN = 'btn-bin';
+const TO_DO_ITEM_SELECTOR = '.todo-item';
+const ADD_CLASS_DONE = 'done';
+
+BTN_ADD.addEventListener('click', addList);
+ul.addEventListener('click', deleteItem);
+ul.addEventListener('click', doneItem);
+
+function addList() {
+  if (isEmpty(input.value)) {
+    alert('Add text, please');
+    return;
+  }; 
+  document.body.prepend(ul);
+  addItem(input);
+  resetInput();
+};
+
+function deleteItem(e) {
+  if (e.target.classList.contains(BTN_BIN)){
+    e.target.closest(TO_DO_ITEM_SELECTOR).remove();
+  }
+};
+
+function doneItem(e) {
+  if (e.target.classList.contains(BTN_DONE)){
+    e.target.closest(TO_DO_ITEM_SELECTOR).classList.toggle(ADD_CLASS_DONE);
+  }
+}
+
+function resetInput() {
+  input.value = '';
+}
+
+function addItem(input) {
+  const addTextList = template.replace('{{text}}', input.value);
+  ul.insertAdjacentHTML('beforeend', addTextList);
+}
+
+function isEmpty(value) {
+  return value === '';
+}
