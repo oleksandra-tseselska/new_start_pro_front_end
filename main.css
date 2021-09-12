@@ -1,0 +1,58 @@
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.btn-border {
+  box-shadow: 0 0 0 1.5px black;
+  border-radius: 6px;
+}
+.done {
+  background-color: #2fab73;
+}
+.btn-bin-contact,
+.btn-bin,
+.btn-done {
+  position: relative;
+  padding: 15px;
+}
+.btn-done:after {
+  content: "\ea10";
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  font-family: 'icomoon' !important;
+  font-weight: normal;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant: normal;
+  font-size: 18px;
+  line-height: 1;
+  text-transform: none;
+  color: #2fab73;
+  background-color: white;
+  speak: never;
+}
+.btn-bin-contact:after,
+.btn-bin:after {
+  content: "\e9ac";
+  position: absolute;
+  left: 9px;
+  top: 5px;
+  font-family: 'icomoon' !important;
+  font-weight: normal;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant: normal;
+  font-size: 18px;
+  line-height: 1;
+  text-transform: none;
+  background-color: white;
+  color: #eb410e;
+  speak: never;
+}
+.contact-list {
+  padding-top: 30px;
+}
