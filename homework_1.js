@@ -145,64 +145,21 @@ console.log('--/--/--/--/--');
 
 // Homework OOP Calk
 
-/**
- * Калькулятор на ООП
- *
- * Создать функцию конструктор которая 
- * принимает базовое знаячение и возвращает
- * объект с набором методов которые могут 
- * прибавлять, вычитать, устанавливать новое
- * базовое знаячение и возвращать значение.
- *
- * Если вместо числа передается что-то другое, например строка
- * - возвращать NaN и ничего не делать
- */
- function isNumber(validNum) {
-  return typeof validNum === 'number';
+function Calculator(base) {
+  this.base = base,
+  this.add = function(num) {
+    return this.isNumber(num) ? this.base += num : NaN;
+  }
+  this.sub = function(num) {
+    return this.isNumber(num) ? this.base -= num : NaN;
+  }
+  this.set = function(num) {
+    return this.isNumber(num) ? this.base = num : NaN;
+  }
+  this.get = function() {
+    return this.base;
+  }
+  this.isNumber = function(validNum) {
+    return typeof validNum === 'number';
+  }
 };
- function addNumber(num) {
-  return isNumber(num) ? this.base += num : NaN;
-};
-function subNumber(num) {
-  return isNumber(num) ? this.base -= num : NaN;
-};
-function setNumber(num) {
-  return isNumber(num) ? this.base = num : NaN;
-};
-function getNumber() {
-  return this.base;
-};
-
-  function Calculator(base) {
-  this.base = base;
-  this.add = addNumber;
-  this.sub = subNumber;
-  this.set = setNumber;
-  this.get = getNumber;
-};
-
-const calc = new Calculator(100);
-
-// calc.add(10); // 110 возвращает (в консоль ничего выводить не нужно)
-// calc.add(10); // 120 возвращает (в консоль ничего выводить не нужно)
-// calc.sub(20); // 100 возвращает (в консоль ничего выводить не нужно)
-
-// calc.set(20); // 20
-// calc.add(10); // 30
-// calc.add('qwe'); // NaN и значение 40 не менять
-// calc.get(); // 30 calc.base
-
-// calc.base // результат последней операции
-
-// console.log(calc);
-
-// console.log(calc.add(10), '110'); // 110 возвращает (в консоль ничего выводить не нужно)
-// console.log(calc.sub(20), '90'); // 90 возвращает (в консоль ничего выводить не нужно)
-// console.log(calc.add(10), '100'); // 100 возвращает (в консоль ничего выводить не нужно)
-
-// console.log(calc.set(20), '20'); // 20
-// console.log(calc.add(10), '30'); // 30
-// console.log(calc.add('qwe'), 'NaN'); // NaN и значение 30 не менять
-// console.log(calc.get(), '30'); // 30 calc.base
-
-// console.log(calc.base, '30'); // результат последней операции
