@@ -143,53 +143,53 @@ console.log('--/--/--/--/--');
 // Homework Hamburger
 
 function Hamburger(type) {
-  this.money = type.money;
-  this.cal = type.cal;
+  this.price = type.price;
+  this.calories = type.calories;
 };
 
 Hamburger.SIZE_SMALL = {
-  money: 50,
-  cal: 20,
+  price: 50,
+  calories: 20,
 };
 Hamburger.SIZE_MIDDLE = {
-  money: 75,
-  cal: 30,
+  price: 75,
+  calories: 30,
 };
 Hamburger.SIZE_BIG = {
-  money: 100,
-  cal: 40,
+  price: 100,
+  calories: 40,
 };
 
 Hamburger.TOPPING_CHEESE = {
-  money: 10,
-  cal: 20,
+  price: 10,
+  calories: 20,
 };
 Hamburger.TOPPING_SALAD = {
-  money: 20,
-  cal: 5,
+  price: 20,
+  calories: 5,
 };
 Hamburger.TOPPING_POTATO = {
-  money: 15,
-  cal: 10,
+  price: 15,
+  calories: 10,
 }
 Hamburger.TOPPING_SEASONING = {
-  money: 15,
-  cal: 0,
+  price: 15,
+  calories: 0,
 };
 Hamburger.TOPPING_MAYO = {
-  money: 20,
-  cal: 5,
+  price: 20,
+  calories: 5,
 };
 
 Hamburger.prototype.getPrice = function() { 
-  return this.money;
+  return this.price;
 };
 Hamburger.prototype.getCalories = function() {
-  return this.cal;
+  return this.calories;
 };
 Hamburger.prototype.addTopping = function(topping) {
-  this.money = this.money + topping.money;
-  this.cal = this.cal + topping.cal;
+  this.price = this.price + topping.price;
+  this.calories = this.calories + topping.calories;
 };
 
 const hamburger = new Hamburger(Hamburger.SIZE_SMALL);
