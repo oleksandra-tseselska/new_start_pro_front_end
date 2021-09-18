@@ -139,3 +139,63 @@ console.log(createCalculator('100'), 'NaN и значение 40 не менят
 console.log(calculator.get(), '40');
 
 console.log('--/--/--/--/--');
+
+// Homework Hamburger
+
+function Hamburger(type) {
+  this.money = type.money;
+  this.cal = type.cal;
+};
+
+Hamburger.SIZE_SMALL = {
+  money: 50,
+  cal: 20,
+};
+Hamburger.SIZE_MIDDLE = {
+  money: 75,
+  cal: 30,
+};
+Hamburger.SIZE_BIG = {
+  money: 100,
+  cal: 40,
+};
+
+Hamburger.TOPPING_CHEESE = {
+  money: 10,
+  cal: 20,
+};
+Hamburger.TOPPING_SALAD = {
+  money: 20,
+  cal: 5,
+};
+Hamburger.TOPPING_POTATO = {
+  money: 15,
+  cal: 10,
+}
+Hamburger.TOPPING_SEASONING = {
+  money: 15,
+  cal: 0,
+};
+Hamburger.TOPPING_MAYO = {
+  money: 20,
+  cal: 5,
+};
+
+Hamburger.prototype.getPrice = function() { 
+  return this.money;
+};
+Hamburger.prototype.getCalories = function() {
+  return this.cal;
+};
+Hamburger.prototype.addTopping = function(topping) {
+  this.money = this.money + topping.money;
+  this.cal = this.cal + topping.cal;
+};
+
+const hamburger = new Hamburger(Hamburger.SIZE_SMALL);
+
+hamburger.addTopping(Hamburger.TOPPING_MAYO);
+hamburger.addTopping(Hamburger.TOPPING_POTATO);
+
+console.log(`Price with sauce: ${hamburger.getPrice()}`);
+console.log(`Calories with sauce: ${hamburger.getCalories()}`);
