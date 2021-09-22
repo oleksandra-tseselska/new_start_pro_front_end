@@ -1,3 +1,5 @@
+'use strict'
+
 const obj = {
   prop: '42',
   prop2: [8, 9, 10, {
@@ -139,6 +141,30 @@ console.log(createCalculator('100'), 'NaN и значение 40 не менят
 console.log(calculator.get(), '40');
 
 console.log('--/--/--/--/--');
+
+
+// Homework OOP Calk
+
+function Calculator(base) {
+  this.base = base,
+
+  this.add = function(num) {
+    return this.isNumber(num) ? this.base += num : NaN;
+  }
+  this.sub = function(num) {
+    return this.isNumber(num) ? this.base -= num : NaN;
+  }
+  this.set = function(num) {
+    return this.isNumber(num) ? this.base = num : NaN;
+  }
+  this.get = function() {
+    return this.base;
+  }
+  this.isNumber = function(validNum) {
+    return typeof validNum === 'number';
+  }
+};
+
 
 // Homework Hamburger
 
