@@ -269,30 +269,33 @@ class Group {
     return student instanceof Student;
   }
 
-  getAverageMark(i) {
+  getAverageMark() {
     let marksArr = [];
 
-    for(i = 0; i < this.students.length; i++) {
-      this.students[i].mark.forEach(element => {
-        marksArr.push(element);
-      });
+    for(let student of this.#students) {
+      marksArr.push(student.mark);
     }
-
-    let sumMark = marksArr.reduce(function sum(result, mark){
-      let sum = result + mark;
-      return sum;
-    })
     
-    let middleMark = sumMark / marksArr.length;
-
-    return middleMark;
+    return Student.prototype.getAverageMark(marksArr);
   }
 }
 
 class Student {
   constructor(name, mark) {
     this.name = name;
-    this.mark = mark;
+    this.mark = this.getAverageMark(mark);
+  }
+
+  getAverageMark(markArr) {
+    let sumMark = markArr.reduce(function sum(result, mark){
+      let sum = result + mark;
+      
+      return sum;
+    })
+
+    let middleMark = sumMark / markArr.length;
+
+    return middleMark;
   }
 }
 
@@ -300,7 +303,7 @@ const group = new Group();
 
 group.addStudent(new Student('John', [10, 8]));
 group.addStudent(new Student('Alex', [10, 9]));
-group.addStudent(new Student('Bob', [6, 10,]));
+group.addStudent(new Student('Bob', [6, 10]));
 
 console.log(group.students.length === 3);
 group.addStudent({});
