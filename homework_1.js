@@ -270,32 +270,34 @@ class Group {
   }
 
   getAverageMark() {
-    let marksArr = [];
-
+    let groupSumMark = 0;
+  
     for(let student of this.#students) {
-      marksArr.push(student.mark);
+      const studentAverageMark = student.getAverageMark();
+
+      groupSumMark += studentAverageMark;
     }
     
-    return Student.prototype.getAverageMark(marksArr);
+    const groupAverageMark = groupSumMark / this.#students.length;
+
+    return groupAverageMark;
   }
 }
 
 class Student {
   constructor(name, mark) {
     this.name = name;
-    this.mark = this.getAverageMark(mark);
-  }
+    this.mark = mark;
+  } 
 
-  getAverageMark(markArr) {
-    let sumMark = markArr.reduce(function sum(result, mark){
-      let sum = result + mark;
-      
-      return sum;
-    })
+  getAverageMark() {
+    const marksSum = this.mark.reduce((sum, mark) => sum + mark, 0);
 
-    let middleMark = sumMark / markArr.length;
+    if (!marksSum) {
+      return 0;
+    }
 
-    return middleMark;
+    return marksSum / this.mark.length;
   }
 }
 
