@@ -225,3 +225,90 @@ hamburger.addTopping(Hamburger.TOPPING_POTATO);
 
 console.log(`Price with sauce: ${hamburger.getPrice()}`);
 console.log(`Calories with sauce: ${hamburger.getCalories()}`);
+
+
+
+// Homework polyfill. And group of students
+
+Array.prototype.max = function() {
+  if (this.length === 1) {
+    return this[0];
+  };
+
+  let possMaxOne = this.shift();
+  let possMaxTwo = max(this);
+  
+  if (possMaxOne > possMaxTwo) {
+    return possMaxOne;
+  };
+
+  return possMaxTwo;
+};
+
+[6, 5, 8, 7].max();
+
+
+class Group {
+  #students;
+
+  constructor() {
+    this.#students = [];
+  }
+
+  addStudent(student) {
+    if(this.#isStudent(student)) {
+      this.#students.push(student);
+    }
+  }
+
+  get students() {
+    return this.#students;
+  }
+
+  #isStudent(student) {
+    return student instanceof Student;
+  }
+
+  getAverageMark() {
+    let groupSumMark = 0;
+  
+    for(let student of this.#students) {
+      const studentAverageMark = student.getAverageMark();
+
+      groupSumMark += studentAverageMark;
+    }
+    
+    const groupAverageMark = groupSumMark / this.#students.length;
+
+    return groupAverageMark;
+  }
+}
+
+class Student {
+  constructor(name, mark) {
+    this.name = name;
+    this.mark = mark;
+  } 
+
+  getAverageMark() {
+    const marksSum = this.mark.reduce((sum, mark) => sum + mark, 0);
+
+    if (!marksSum) {
+      return 0;
+    }
+
+    return marksSum / this.mark.length;
+  }
+}
+
+const group = new Group();
+
+group.addStudent(new Student('John', [10, 8]));
+group.addStudent(new Student('Alex', [10, 9]));
+group.addStudent(new Student('Bob', [6, 10]));
+
+console.log(group.students.length === 3);
+group.addStudent({});
+console.log(group.students.length === 3);
+
+console.log(group.getAverageMark() === (10 + 8 + 10 + 9 + 6 + 10) / 6); // 8.83
