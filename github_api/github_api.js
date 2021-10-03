@@ -25,7 +25,10 @@ function getUserInfo() {
 
   return fetch(userUrl)
     .then((res) => {
-      if (!res.ok) { throw response }
+      if(!res.ok) {
+        throw response 
+      }
+
       return res.json()
     })
     .then((info) => info)
@@ -64,7 +67,7 @@ function getUserName() {
 
 function isEmpty(value) {
   if(value === '') {
-    alert('Add user name please')
+    alert('Add user name please');
   } else {
 
     return value;
