@@ -21,14 +21,18 @@ function onButtonClick() {
 }
 
 function getUserInfo() {
-  if(isUndefined(getUserName())) {
-    const userUrl = GIT_URL.replace(PLACEHOLDER, getUserName());
-    const userPromise = fetch(userUrl);
+  const userUrl = GIT_URL.replace(PLACEHOLDER, getUserName());
 
-    return userPromise
-    .then((res) => res.json())
+  return fetch(userUrl)
+    .then((res) => {
+      if (!res.ok) { throw response }
+      return res.json()
+    })
     .then((info) => info)
-  }
+    .catch( err => {
+      console.log(err)
+      alert('User is not exist')
+    })
 }
 
 function renderInfoHtml(info) {
@@ -62,13 +66,6 @@ function isEmpty(value) {
   if(value === '') {
     alert('Add user name please')
   } else {
-
-    return value;
-  }
-}
-
-function isUndefined(value) {
-  if(value !== 'undefined') {
 
     return value;
   }
