@@ -1,9 +1,17 @@
-const button = document.querySelector('#button-input');
-const container = document.querySelector('#container');
-const input = document.querySelector('#input-user-name');
+const ID_BTN_INPUT = '#button-input';
+const ID_CONTAINER = '#container';
+const ID_INPUT_USER = '#input-user-name';
+
+const button = document.querySelector(ID_BTN_INPUT);
+const container = document.querySelector(ID_CONTAINER);
+const input = document.querySelector(ID_INPUT_USER);
 
 const GIT_URL = 'https://api.github.com/users/{{login}}';
-const PLACEHOLDER = '{{login}}';
+const PLACEHOLDER_USER_NAME = '{{login}}';
+const PLACEHOLDER_USER_IMG = '{{img}}';
+const PLACEHOLDER_USER_REPOS = '{{reposNum}}';
+const PLACEHOLDER_USER_FOLLOWERS = '{{followers}}';
+const PLACEHOLDER_USER_FOLLOWING = '{{following}}';
 
 const userInfoTemplate = document.querySelector('#toDoUserInfoTemplate').innerHTML;
 
@@ -16,25 +24,23 @@ function onButtonClick() {
     .then((html) => {
       container.innerHTML = html;
     })
+    .catch( err => {
+      alert(err.message)
+    });
 
   resetInput()
 }
 
 function getUserInfo() {
-  const userUrl = GIT_URL.replace(PLACEHOLDER, getUserName());
+  const userUrl = GIT_URL.replace(PLACEHOLDER_USER_NAME, getUserName());
 
   return fetch(userUrl)
     .then((res) => {
       if(!res.ok) {
-        throw response 
+        throw new Error('User is not exist') 
       }
 
       return res.json()
-    })
-    .then((info) => info)
-    .catch( err => {
-      console.log(err)
-      alert('User is not exist')
     })
 }
 
@@ -45,10 +51,10 @@ function renderInfoHtml(info) {
   const following = info.following;
   
   const  contactsList = userInfoTemplate
-    .replace('{{img}}', `<img src="${avatar}"`)
-    .replace('{{reposNum}}', `Количество репозиториев: ${reposNum}`)
-    .replace('{{followers}}', `Количество фоловеров: ${followers}`)
-    .replace('{{following}}', `Количество наблюдаемых: ${following}`);
+    .replace(PLACEHOLDER_USER_IMG, `<img src="${avatar}"`)
+    .replace(PLACEHOLDER_USER_REPOS, `Количество репозиториев: ${reposNum}`)
+    .replace(PLACEHOLDER_USER_FOLLOWERS, `Количество фоловеров: ${followers}`)
+    .replace(PLACEHOLDER_USER_FOLLOWING, `Количество наблюдаемых: ${following}`);
   
   return contactsList;
 }
@@ -67,7 +73,7 @@ function getUserName() {
 
 function isEmpty(value) {
   if(value === '') {
-    alert('Add user name please');
+    alert('Add user name, please');
   } else {
 
     return value;
