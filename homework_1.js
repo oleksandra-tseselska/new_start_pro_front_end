@@ -1,6 +1,6 @@
 'use strict'
 
-const obj = {
+const objFirst = {
   prop: '42',
   prop2: [8, 9, 10, {
     beautifulPropertyName: 88,
@@ -27,8 +27,8 @@ const obj = {
   }
 };
 
-console.log(obj.prop2[3]['property with spaces'].a.c.someProperty[0]['prop name']);
-console.log(obj.prop3().bar.anotherBeautifulProp[1].target);
+console.log(objFirst.prop2[3]['property with spaces'].a.c.someProperty[0]['prop name']);
+console.log(objFirst.prop3().bar.anotherBeautifulProp[1].target);
 
 
 // Homework 2
@@ -312,3 +312,59 @@ group.addStudent({});
 console.log(group.students.length === 3);
 
 console.log(group.getAverageMark() === (10 + 8 + 10 + 9 + 6 + 10) / 6); // 8.83
+
+console.log('--/--/--/--/--');
+
+
+// Mentoring homework 1
+
+// вывести сначала 10, потом 15 описав после функции вызов с контекстом
+
+var x = 10;
+var obj = {
+  x: 15,
+};
+
+function fun() {
+    // alert(this.x); 
+    // alert(this); 
+}
+
+let funcX = fun.bind(x);
+let funcObj = fun.bind(obj);
+
+funcX();
+funcObj();
+
+
+
+// использовать метод, принадлежащий одному объекту, а вызвать его в контексте другого:
+
+var person = {
+  firstName:"John",
+  lastName: "Konor",
+  fullName: function() {
+
+    return this.firstName + " " + this.lastName;
+  }
+}
+
+var user = {
+  firstName:"Max",
+  lastName: "White"
+}
+
+let userFullName = person.fullName.bind(user);
+
+console.log(userFullName());
+console.log(person.fullName());
+console.log(user.fullName());
+
+// вернуть "Max White" вызвав fullaName
+
+
+var tester = function() {
+  // alert(arguments);
+};
+
+// через метод apply вызвать функцию и вернуть ["0", "1", "2", "length", "callee"]
