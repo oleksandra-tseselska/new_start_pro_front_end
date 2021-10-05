@@ -1,6 +1,6 @@
 'use strict'
 
-const obj = {
+const objFirst = {
   prop: '42',
   prop2: [8, 9, 10, {
     beautifulPropertyName: 88,
@@ -27,8 +27,8 @@ const obj = {
   }
 };
 
-console.log(obj.prop2[3]['property with spaces'].a.c.someProperty[0]['prop name']);
-console.log(obj.prop3().bar.anotherBeautifulProp[1].target);
+console.log(objFirst.prop2[3]['property with spaces'].a.c.someProperty[0]['prop name']);
+console.log(objFirst.prop3().bar.anotherBeautifulProp[1].target);
 
 
 // Homework 2
@@ -312,3 +312,5 @@ group.addStudent({});
 console.log(group.students.length === 3);
 
 console.log(group.getAverageMark() === (10 + 8 + 10 + 9 + 6 + 10) / 6); // 8.83
+
+console.log('--/--/--/--/--');
