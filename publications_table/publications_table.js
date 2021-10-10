@@ -26,7 +26,6 @@ const HELPERS = Object.freeze({
 const tablePublic = document.querySelector(SELECTOR.PUBLIC_TABLE);
 const template = document.querySelector(SELECTOR.TEMPLATE).innerHTML;
 const tableBody = document.querySelector(SELECTOR.PUBLIC_LIST);
-const btnAdd = document.querySelector(SELECTOR.BTN_ADD);
 const inputs = document.querySelectorAll(SELECTOR.INPUTS);
 
 tablePublic.addEventListener('click', onPublicTableClick);
@@ -44,14 +43,14 @@ function onPublicTableClick(e) {
   const publicRow = getPublicElement(e.target);
 
   const public = getPublics()
-  console.log(public)
 
   if(classList.contains(CLASS.BTN_BIN)) {
     return removePublic(publicRow);
   };
   if(classList.contains(CLASS.BTN_ADD)) {
-    console.log(public)
-    addPublic(public)
+    isEmpty(public);
+    addPublic(public);
+    resetInputs();
   }
 }
 
@@ -95,4 +94,17 @@ function addPublic(public) {
 
 function getPublicElement(target) {
   return target.closest(HELPERS.POINT + CLASS.PUBLIC_ROW);
+}
+
+function resetInputs() {
+  for(let input of inputs) {
+    input.value = '';
+  };
+};
+
+function isEmpty(public) {
+  if (public.title === '' || public.body === '') {
+    alert('Fill in all fields, please');
+    return;
+  }
 }
