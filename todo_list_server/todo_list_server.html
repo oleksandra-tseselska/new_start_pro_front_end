@@ -20,11 +20,17 @@
   placeholder="Write something"
   >
   <button id="button-add" class="btn-border">Add</button>
+  <div id="loading" class="hide">Loading...</div>
+  <div id="error" class="red"></div>
   <script type="text/template" id="toDoListTemplate">
-    <li class="todo-item" data-id="{{todo-id}}">
-      <span class="todo-item-text">{{text}}</span>
-      <button class="btn-done"></button>
-      <button class="btn-bin"></button>
+    <li 
+      class="todo-item {{class-done}}" 
+      data-id="{{todo-id}}"
+      data-status = "{{status}}"
+      >
+        <span class="todo-item-text">{{text}}</span>
+        <button class="btn-done"></button>
+        <button class="btn-bin"></button>
     </li>
   </script>
 </body>

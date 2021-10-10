@@ -56,3 +56,9 @@ button {
 .contact-list {
   padding-top: 30px;
 }
+.hide {
+  display: none;
+}
+.red {
+  color: red;
+}
