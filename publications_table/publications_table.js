@@ -33,7 +33,6 @@ tablePublic.addEventListener('click', onPublicTableClick);
 init();
 
 function init() {
-
   PublicAPI.getList()
     .then(addPublicList)
 }
@@ -51,17 +50,19 @@ function onPublicTableClick(e) {
     isEmpty(public);
     addPublic(public);
     resetInputs();
-  }
+  };
 }
 
-function getPublics() {
-const publics = {};
+function removePublic(el) {
+  return PublicAPI.delete(+el.dataset.id)
+    .then(() => PublicAPI.getList())
+    .then(addPublicList)
+}
 
-  for(let input of inputs) {
-    publics[input.name] = input.value;
-  };
-
-  return publics;
+function addPublic(public) {
+  PublicAPI.create(public)
+    .then(() => PublicAPI.getList())
+    .then(addPublicList)
 }
 
 function addPublicList(publicList) {
@@ -78,19 +79,15 @@ function getHtml(public) {
     .replace(PLACEHOLDER.DATA_ID, public.id)
 }
 
-function removePublic(el) {
-
-  return PublicAPI.delete(+el.dataset.id)
-    .then(() => PublicAPI.getList())
-    .then(addPublicList)
-}
-
-function addPublic(public) {
-
-  PublicAPI.create(public)
-    .then(() => PublicAPI.getList())
-    .then(addPublicList)
-}
+function getPublics() {
+  const publics = {};
+  
+    for(let input of inputs) {
+      publics[input.name] = input.value;
+    };
+  
+    return publics;
+  }
 
 function getPublicElement(target) {
   return target.closest(HELPERS.POINT + CLASS.PUBLIC_ROW);
