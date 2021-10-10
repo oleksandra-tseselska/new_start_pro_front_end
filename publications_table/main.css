@@ -1,0 +1,19 @@
+th,
+input {
+  width: 25vw;
+}
+td {
+  border: 2px solid black;
+}
+tfoot td {
+  border: none;
+}
+button {
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  font-weight: bold;
+}
+.public-table {
+  text-align: center;
+}

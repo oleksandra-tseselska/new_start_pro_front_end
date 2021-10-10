@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="create homework for course Pro Front End">
+  <title>Publications table</title>
+  <link rel="stylesheet" href="./main.css">
+  <script defer src="./app.js"></script>
+  <script defer src="./publications_table.js"></script>
+</head>
+<body>
+  <table id="publication-table" class="public-table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Body</th>
+        <th>To Do Something</th>
+      </tr>
+    </thead>
+    <tbody id="publication-list">
+
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <input 
+            id="publications-input"
+            type="text"
+            name="title"
+            placeholder="Add title"
+          >
+        </td>
+        <td>
+          <input 
+            id="publications-input"
+            type="text"
+            name="body"
+            placeholder="Add text"
+          >
+        </td>
+        <td>
+          <button class="btn-add">[Add publication]</button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script type="text/template" id="publicationsTableTemplate">
+    <tr class = "publication-row" id="publication"  data-id="{{dataId}}">
+      <td>{{id}}</td>
+      <td>{{title}}</td>
+      <td>{{body}}</td>
+      <td>
+        <button class="btn-edit">[Edit]</button>
+        <button class="btn-bin">[Delete]</button>
+      </td>
+    </tr>
+  </script>
+</body>
+</html>
