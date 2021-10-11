@@ -3,12 +3,16 @@ const SELECTOR = Object.freeze({
   PUBLIC_LIST: '#publication-list',
   TEMPLATE: '#publicationsTableTemplate',
   INPUTS: '#publications-input',
+  LOADING: '#loading',
+  ERROR: '#error',
 });
 
 const CLASS = Object.freeze({
   PUBLIC_ROW: 'publication-row',
   BTN_BIN: 'btn-bin',
   BTN_ADD: 'btn-add',
+  BTN_RESET: 'btn-reset',
+  HIDE: 'hide',
 })
 
 const PLACEHOLDER = Object.freeze({
@@ -27,14 +31,20 @@ const tablePublic = document.querySelector(SELECTOR.PUBLIC_TABLE);
 const template = document.querySelector(SELECTOR.TEMPLATE).innerHTML;
 const tableBody = document.querySelector(SELECTOR.PUBLIC_LIST);
 const inputs = document.querySelectorAll(SELECTOR.INPUTS);
+const loading = document.querySelector(SELECTOR.LOADING);
+const error = document.querySelector(SELECTOR.ERROR);
 
 tablePublic.addEventListener('click', onPublicTableClick);
 
 init();
 
 function init() {
+  toggleLoading();
+
   PublicAPI.getList()
     .then(addPublicList)
+    .catch(handleError)
+    .finally(toggleLoading);
 }
 
 function onPublicTableClick(e) {
@@ -47,22 +57,35 @@ function onPublicTableClick(e) {
     return removePublic(publicRow);
   };
   if(classList.contains(CLASS.BTN_ADD)) {
-    isEmpty(public);
-    addPublic(public);
-    resetInputs();
+    if(!isEmpty(public)) {
+      addPublic(public);
+      resetInputs();
+    }
   };
+  if(classList.contains(CLASS.BTN_RESET)) {
+    resetInputs();
+  }
 }
 
 function removePublic(el) {
-  return PublicAPI.delete(+el.dataset.id)
-    .then(() => PublicAPI.getList())
-    .then(addPublicList)
+  el.remove();
+
+  PublicAPI
+    .delete(+el.dataset.id)
+    .catch((e) => {
+      handleError(e);
+      init();
+    });
 }
 
 function addPublic(public) {
+  toggleLoading();
+
   PublicAPI.create(public)
     .then(() => PublicAPI.getList())
     .then(addPublicList)
+    .catch(handleError)
+    .finally(toggleLoading);
 }
 
 function addPublicList(publicList) {
@@ -102,6 +125,19 @@ function resetInputs() {
 function isEmpty(public) {
   if (public.title === '' || public.body === '') {
     alert('Fill in all fields, please');
-    return;
+
+    return true;
   }
+
+  return;
+}
+
+function handleError(e) {
+  error.textContent = e.message;
+
+  setTimeout(() => error.textContent = HELPERS.EMPTY_STRING, 5000);
+}
+
+function toggleLoading() {
+  loading.classList.toggle(CLASS.HIDE);
 }

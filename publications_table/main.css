@@ -3,10 +3,13 @@ input {
   width: 25vw;
 }
 td {
+  padding: 10px;
   border: 2px solid black;
 }
 tfoot td {
   border: none;
+  padding-left: 0;
+  padding-right: 0;
 }
 button {
   cursor: pointer;
@@ -16,4 +19,15 @@ button {
 }
 .public-table {
   text-align: center;
+}
+.hide {
+  display: none;
+}
+.red {
+  color: red;
+}
+.flex {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
