@@ -54,17 +54,7 @@ function init() {
 function onButtonClick() {
   const todo = getTodo();
 
-  if (isEmpty(input.value)) {
-    alert('Add text, please');
-    return;
-  }; 
-
-  if (isValidTodo(todo)) {
-    addTodo(todo);
-  } else {
-    alert('The text must be more than 3 characters');
-  }
-
+  isEmptyOrValid(todo);
   resetInput();
 };
 
@@ -161,6 +151,18 @@ function isEmpty(value) {
 
 function isValidTodo(todo) {
   return todo && todo.title && todo.title.length >= 3;
+}
+
+function isEmptyOrValid(todo) {
+  if (isEmpty(todo.title)) {
+    alert('Add text, please');
+    return;
+  };
+  if (isValidTodo(todo)) {
+    addTodo(todo);
+  } else {
+    alert('The text must be more than 3 characters');
+  }
 }
 
 function resetInput() {
