@@ -15,11 +15,11 @@ const $stickerListEl = $(SELECTOR.LIST_STICKERS)
   .on('click', SELECTOR.DELETE_STICKER, onDeleteClick)
   .on('focusout', SELECTOR.EDIT_STICKER, onDescFocusout);
 
-$(SELECTOR.ADD_STICKER_BTN).on('click', onAddNoteBtnClick);
+$(SELECTOR.ADD_STICKER_BTN).on('click', onAddStickerBtnClick);
 
 init();
 
-function onAddNoteBtnClick() {
+function onAddStickerBtnClick() {
   createSticker(EMPTY_STICKER);
 }
 
@@ -100,8 +100,8 @@ function getStickerHtml(sticker) {
 }
 
 function getElementIndex($el) {
-  const $note = getStickerElementByChild($el);
-  return $note && $note.data('stickerId');
+  const $sticker = getStickerElementByChild($el);
+  return $sticker && $sticker.data('stickerId');
 }
 
 function getStickerElementByChild($child) {
