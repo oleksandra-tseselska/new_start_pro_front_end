@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create sticker API">
+  <link rel="stylesheet" href="main.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script defer src="./app.js"></script>
+  <script defer src="./jquery_into.js"></script>
+  <title>Sticker API</title>
+</head>
+<body>
+  <div class="container">
+    <div class="heading">
+      <button id="addStickerBtn">Add new Sticker</button>
+    </div>
+    <div id="list" class="stickers-list"></div>
+  </div>
+
+  <script type="text/template" id="stickerTemplate">
+  <div class="sticker" data-sticker-id="{{sticker-id}}">
+    <span class="delete-sticker">X</span>
+    <textarea class="edit-sticker" name="description">{{description}}</textarea>
+  </div>
+  </script>
+</body>
+</html>
