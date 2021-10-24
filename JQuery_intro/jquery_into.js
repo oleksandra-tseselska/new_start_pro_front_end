@@ -48,7 +48,7 @@ function getList() {
 }
 
 function setData(data) {
-  return (stickersList = data);
+  return stickersList = data;
 }
 
 function getStickerElementById(id) {
