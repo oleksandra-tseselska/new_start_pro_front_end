@@ -15,19 +15,6 @@ const CLASS = Object.freeze({
   ALBUM_ID: 'data-id',
 })
 
-const PLACEHOLDER = Object.freeze({
-  DATA_ID: '{{album-id}}',
-  TITLE: '{{title}}',
-  PHOTO_URL: '{{photo-url}}',
-  PHOTO_ID: '{{photo-id}}',
-  PHOTO_ALT: '{{photo-alt}}',
-});
-
-const HELPERS = Object.freeze({
-  EMPTY_STRING: '',
-  POINT: '.',
-});
-
 const templateAlbums = document.querySelector(SELECTOR.TEMPLATE_ALBUMS).innerHTML;
 const templatePhotos = document.querySelector(SELECTOR.TEMPLATE_PHOTOS).innerHTML;
 const galleryList = document.querySelector(SELECTOR.GALLERY_LIST);
@@ -36,13 +23,13 @@ const albumPhoto = document.querySelector(SELECTOR.ALBUM_PHOTO);
 init();
 
 function init() {
-  GalleryAPI.getList()
+  GalleryAPI.getAlbumsList()
     .then(addAlbumsList)
     .catch((e) => alert(e.message))
 }
 
 function addAlbumsList(gallery) {
-  const htmlAlbums = gallery.map(album => getHtmlAlbum(album)).join(HELPERS.EMPTY_STRING);
+  const htmlAlbums = gallery.map(album => getHtmlAlbum(album)).join('');
 
   galleryList.innerHTML = htmlAlbums;
 
@@ -54,8 +41,8 @@ function addAlbumsList(gallery) {
 
 function getHtmlAlbum(album) {
   return templateAlbums
-    .replace(PLACEHOLDER.TITLE, album.title)
-    .replace(PLACEHOLDER.DATA_ID, album.id)
+    .replace('{{title}}', album.title)
+    .replace('{{album-id}}', album.id)
 }
 
 galleryList.addEventListener('click', onGalleryListClick);
@@ -74,11 +61,11 @@ function addActiveAlbum(e) {
 }
 
 function getAlbum(target) {
-  return target.closest(HELPERS.POINT + CLASS.ALBUM);
+  return target.closest('.' + CLASS.ALBUM);
 }
 
 function findActiveItem() {
-  return galleryList.querySelector(HELPERS.POINT + CLASS.ACTIVE);
+  return galleryList.querySelector('.' + CLASS.ACTIVE);
 }
 
 function addAlbumPhotos(album) {
@@ -91,16 +78,16 @@ function addAlbumPhotos(album) {
 }
 
 function addAlbumList(photos) {
-  const htmlPhotos = photos.map(photo => getHtmlPhoto(photo)).join(HELPERS.EMPTY_STRING);
+  const htmlPhotos = photos.map(photo => getHtmlPhoto(photo)).join('');
 
   albumPhoto.innerHTML = htmlPhotos;
 }
 
 function getHtmlPhoto(photo) {
   return templatePhotos
-    .replace(PLACEHOLDER.PHOTO_URL, photo.thumbnailUrl)
-    .replace(PLACEHOLDER.PHOTO_ID, photo.id)
-    .replace(PLACEHOLDER.PHOTO_ALT, photo.title)
+    .replace('{{photo-url}}', photo.thumbnailUrl)
+    .replace('{{photo-id}}', photo.id)
+    .replace('{{photo-alt}}', photo.title)
 }
 
 function getFirstAlbum() {
