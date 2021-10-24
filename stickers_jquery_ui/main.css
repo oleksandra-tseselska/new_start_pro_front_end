@@ -1,0 +1,36 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.container {
+  width: 100vw;
+}
+.heading {
+  display: flex;
+  justify-content: flex-end;
+  padding: 30px;
+  border-bottom: 2px solid black;
+}
+.stickers-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+.sticker {
+  background-color: cadetblue;
+  padding: 10px;
+  margin: 5px;
+  text-align: end;
+}
+.edit-sticker,
+.delete-sticker {
+  margin-left: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+.textarea-sticker {
+  display: block;
+  margin: 10px;
+}

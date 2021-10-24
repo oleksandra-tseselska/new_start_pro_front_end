@@ -3,8 +3,10 @@ const SELECTOR = Object.freeze ({
   LIST_STICKERS: '#list',
   ITEM_STICKER: '.sticker',
   DELETE_STICKER: '.delete-sticker',
-  EDIT_STICKER: '.edit-sticker',
+  EDIT_TEXTAREA: '.textarea-sticker',
   ADD_STICKER_BTN: '#addStickerBtn',
+  MODAL : "#stickerModal",
+  EDIT: ".edit-sticker",
 });
 
 const EMPTY_STICKER = {description: ''};
@@ -13,14 +15,39 @@ let stickersList = [];
 const stickerTemplate = $(SELECTOR.TEMPLATE).html();
 const $stickerListEl = $(SELECTOR.LIST_STICKERS)
   .on('click', SELECTOR.DELETE_STICKER, onDeleteClick)
-  .on('focusout', SELECTOR.EDIT_STICKER, onDescFocusout);
+  .on('focusout', SELECTOR.EDIT_TEXTAREA, onDescFocusout)
+  .on('click', SELECTOR.EDIT, onEditBtnClick);
 
 $(SELECTOR.ADD_STICKER_BTN).on('click', onAddStickerBtnClick);
+
+const $form = $(`${SELECTOR.MODAL} form`)[0];
+const $modal = $(SELECTOR.MODAL).dialog({
+  autoOpen: false,
+  height: 200,
+  width: 350,
+  modal: true,
+  buttons: {
+    Save: () => {
+      const sticker = getModalSticker()
+
+      if(sticker.id) {
+        updateSticker(sticker.id, sticker);
+      } else {
+        createSticker(sticker);
+      }
+
+      // renderList();
+      closeModal();
+    },
+    Cancel: closeModal,
+  },
+  close: closeModal,
+});
 
 init();
 
 function onAddStickerBtnClick() {
-  createSticker(EMPTY_STICKER);
+  openModal(EMPTY_STICKER);
 }
 
 function onDeleteClick(e) {
@@ -29,11 +56,18 @@ function onDeleteClick(e) {
   deleteSticker(getElementIndex($element));
 }
 
-function onDescFocusout(e) {
-  const $element = $(this);
+function onEditBtnClick(e) {
+  const $input = $(this);
+  const id = getElementIndex($input);
+  const sticker = stickersList.find((item) => +item.id === id)
 
-  updateSticker(getElementIndex($element), {
-    description: $element.val(),
+  openModal(sticker);
+}
+function onDescFocusout(e) {
+  const $input = $(this);
+
+  updateSticker(getElementIndex($input), {
+    description: $input.val(),
   });
 }
 
@@ -106,4 +140,27 @@ function getElementIndex($el) {
 
 function getStickerElementByChild($child) {
   return $child.closest(SELECTOR.ITEM_STICKER);
+}
+
+function openModal(sticker) {
+  setModalSticker(sticker);
+  $modal.dialog("open");
+}
+
+function closeModal() {
+  $modal.dialog("close");
+  $form.reset();
+}
+
+function setModalSticker(sticker) {
+  $form.id.value = sticker.id;
+  $form.description.value = sticker.description;
+}
+
+function getModalSticker() {
+  return {
+    // ...EMPTY_STICKER,
+    id: $form.id.value,
+    description: $form.description.value,
+  }
 }
