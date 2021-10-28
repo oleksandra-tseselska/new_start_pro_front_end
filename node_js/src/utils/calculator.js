@@ -4,7 +4,6 @@ const mult = require('./mult');
 const div = require('./div');
 
 function Calculator() {
-
   this.add = add.add;
   this.sub = sub.sub;
   this.mult = mult.mult;
