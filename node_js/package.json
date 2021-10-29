@@ -1,0 +1,19 @@
+{
+  "name": "nodejs_homework",
+  "version": "1.0.0",
+  "description": "first steps in nodejs",
+  "main": "./src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oleksandra-tseselska/new_start_pro_front_end.git"
+  },
+  "author": "oleksandra-tseselska",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oleksandra-tseselska/new_start_pro_front_end/issues"
+  },
+  "homepage": "https://github.com/oleksandra-tseselska/new_start_pro_front_end#readme"
+}
