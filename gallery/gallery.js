@@ -24,12 +24,15 @@ galleryList.addEventListener('click', onGalleryListClick);
 init();
 
 function init() {
-  GalleryAPI.getAlbumsList()
-    .then(addAlbumsList)
+  GalleryAPI
+    .getAlbumsList()
     .then((gallery) => {
-      setFirstAlbum(gallery);
+      addAlbumsList(gallery);
 
-      const id =  getFirstAlbumId();
+      const firstAlbum = getFirstAlbum();
+      const id =  getAlbumId(firstAlbum);
+
+      setAlbumActive(firstAlbum);
 
       if(id) {
         renderPhotoListByAlbumId(id);
@@ -60,21 +63,10 @@ function getHtmlAlbum(album) {
     .replace('{{album-id}}', album.id)
 }
 
-function setFirstAlbum() {
-  const firstAlbum = getFirstAlbum();
-
-  setAlbumActive(firstAlbum);
-}
-
 function renderPhotoListByAlbumId(albumId) {
-  GalleryAPI.getPhotosList(albumId)
-      .then(addPhotoList)
-}
-
-function getFirstAlbumId() {
-  const firstAlbum = getFirstAlbum();
-
-  return getAlbumId(firstAlbum);
+  GalleryAPI
+    .getPhotosList(albumId)
+    .then(addPhotoList)
 }
 
 function removeAlbumActive(activeEl) {
