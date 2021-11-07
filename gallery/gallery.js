@@ -39,32 +39,19 @@ function init() {
 }
 
 function onGalleryListClick(e) {
-  const albumId = getAlbumId(e.target);
-  setAlbumActive(e.target);
+  const album = getAlbum(e.target);
+  const albumId = getAlbumId(album);
+  const activeEl = findActiveItem();
 
+  removeAlbumActive(activeEl)
+  setAlbumActive(album);
   renderPhotoListByAlbumId(albumId);
 }
 
-function setFirstAlbum() {
-  const firstAlbum = getFirstAlbum();
-
-  firstAlbum.classList.add(CLASS.ACTIVE);
-}
-
-function renderPhotoListByAlbumId(albumId) {
-  GalleryAPI.getPhotosList(albumId)
-      .then(addPhotoList)
-}
 function addAlbumsList(gallery) {
   const htmlAlbums = gallery.map(album => getHtmlAlbum(album)).join('');
 
   galleryList.innerHTML = htmlAlbums;
-}
-
-function getFirstAlbumId() {
-  const firstAlbum = getFirstAlbum();
-
-  return firstAlbum.getAttribute(CLASS.ALBUM_ID);;
 }
 
 function getHtmlAlbum(album) {
@@ -73,20 +60,29 @@ function getHtmlAlbum(album) {
     .replace('{{album-id}}', album.id)
 }
 
-function setAlbumActive(target) {
-  const album = getAlbum(target);
-  const activeEl = findActiveItem();
+function setFirstAlbum() {
+  const firstAlbum = getFirstAlbum();
 
+  setAlbumActive(firstAlbum);
+}
+
+function renderPhotoListByAlbumId(albumId) {
+  GalleryAPI.getPhotosList(albumId)
+      .then(addPhotoList)
+}
+
+function getFirstAlbumId() {
+  const firstAlbum = getFirstAlbum();
+
+  return getAlbumId(firstAlbum);
+}
+
+function removeAlbumActive(activeEl) {
   activeEl.classList.remove(CLASS.ACTIVE);
+}
+
+function setAlbumActive(album) {
   album.classList.add(CLASS.ACTIVE);
-}
-
-function getAlbum(target) {
-  return target.closest('.' + CLASS.ALBUM);
-}
-
-function findActiveItem() {
-  return galleryList.querySelector('.' + CLASS.ACTIVE);
 }
 
 function addPhotoList(photos) {
@@ -106,8 +102,14 @@ function getFirstAlbum() {
   return galleryList.firstElementChild;
 }
 
-function getAlbumId(target) {
-  const album = getAlbum(target);
+function getAlbum(target) {
+  return target.closest('.' + CLASS.ALBUM);
+}
 
+function getAlbumId(album) {
   return album.getAttribute(CLASS.ALBUM_ID);
+}
+
+function findActiveItem() {
+  return galleryList.querySelector('.' + CLASS.ACTIVE);
 }
