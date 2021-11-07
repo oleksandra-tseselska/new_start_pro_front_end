@@ -5,10 +5,6 @@ const SELECTOR = Object.freeze({
   ALBUM_PHOTO: '#album-photo',
 });
 
-const URL = Object.freeze({
-  PHOTOS: 'https://jsonplaceholder.typicode.com/photos?albumId'
-})
-
 const CLASS = Object.freeze({
   ALBUM: 'album',
   ACTIVE: 'active',
