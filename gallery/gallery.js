@@ -19,24 +19,52 @@ const templateAlbums = document.querySelector(SELECTOR.TEMPLATE_ALBUMS).innerHTM
 const templatePhotos = document.querySelector(SELECTOR.TEMPLATE_PHOTOS).innerHTML;
 const galleryList = document.querySelector(SELECTOR.GALLERY_LIST);
 const albumPhoto = document.querySelector(SELECTOR.ALBUM_PHOTO);
+galleryList.addEventListener('click', onGalleryListClick);
 
 init();
 
 function init() {
   GalleryAPI.getAlbumsList()
     .then(addAlbumsList)
+    .then((gallery) => {
+      setFirstAlbum(gallery);
+
+      const id =  getFirstAlbumId();
+
+      if(id) {
+        renderPhotoListByAlbumId(id);
+      }
+    })
     .catch((e) => alert(e.message))
 }
 
+function onGalleryListClick(e) {
+  const albumId = getAlbumId(e.target);
+  setAlbumActive(e.target);
+
+  renderPhotoListByAlbumId(albumId);
+}
+
+function setFirstAlbum() {
+  const firstAlbum = getFirstAlbum();
+
+  firstAlbum.classList.add(CLASS.ACTIVE);
+}
+
+function renderPhotoListByAlbumId(albumId) {
+  GalleryAPI.getPhotosList(albumId)
+      .then(addPhotoList)
+}
 function addAlbumsList(gallery) {
   const htmlAlbums = gallery.map(album => getHtmlAlbum(album)).join('');
 
   galleryList.innerHTML = htmlAlbums;
+}
 
+function getFirstAlbumId() {
   const firstAlbum = getFirstAlbum();
 
-  firstAlbum.classList.add(CLASS.ACTIVE);
-  addAlbumPhotos(firstAlbum);
+  return firstAlbum.getAttribute(CLASS.ALBUM_ID);;
 }
 
 function getHtmlAlbum(album) {
@@ -45,19 +73,12 @@ function getHtmlAlbum(album) {
     .replace('{{album-id}}', album.id)
 }
 
-galleryList.addEventListener('click', onGalleryListClick);
-
-function onGalleryListClick(e) {
-  addActiveAlbum(e);
-}
-
-function addActiveAlbum(e) {
-  const album = getAlbum(e.target);
+function setAlbumActive(target) {
+  const album = getAlbum(target);
   const activeEl = findActiveItem();
 
   activeEl.classList.remove(CLASS.ACTIVE);
   album.classList.add(CLASS.ACTIVE);
-  addAlbumPhotos(album);
 }
 
 function getAlbum(target) {
@@ -68,16 +89,7 @@ function findActiveItem() {
   return galleryList.querySelector('.' + CLASS.ACTIVE);
 }
 
-function addAlbumPhotos(album) {
-  const albumId = album.getAttribute(CLASS.ALBUM_ID);
-
-  fetch(`${URL.PHOTOS}=${albumId}`)
-  .then((response) => response.json())
-  .then((photos) => photos)
-  .then(addAlbumList)
-}
-
-function addAlbumList(photos) {
+function addPhotoList(photos) {
   const htmlPhotos = photos.map(photo => getHtmlPhoto(photo)).join('');
 
   albumPhoto.innerHTML = htmlPhotos;
@@ -92,4 +104,10 @@ function getHtmlPhoto(photo) {
 
 function getFirstAlbum() {
   return galleryList.firstElementChild;
+}
+
+function getAlbumId(target) {
+  const album = getAlbum(target);
+
+  return album.getAttribute(CLASS.ALBUM_ID);
 }
