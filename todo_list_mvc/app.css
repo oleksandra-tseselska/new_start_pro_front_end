@@ -1,0 +1,10 @@
+.done {
+  background-color: rgba(0, 128, 0, 0.493);
+}
+.hide {
+  display: none;
+}
+.delete-btn {
+  cursor: pointer;
+  background-color: rgba(255, 0, 0, 0.534);
+}
