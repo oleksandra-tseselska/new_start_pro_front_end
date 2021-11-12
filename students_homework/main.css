@@ -1,0 +1,46 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+li,
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+span input{
+  width: 9%;
+  min-width: 60px;
+  margin: 0.4%;
+}
+.students-list{
+  width: 100vw;
+}
+.student {
+  padding: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.609);
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+.student-name {
+  text-transform: capitalize;
+}
+.student-marks {
+  display: inline-flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.del-btn {
+  background-color: rgba(255, 0, 0, 0.534);
+}
+.add-btn {
+  padding: 5px;
+  background-color: rgba(30, 255, 0, 0.534);
+}

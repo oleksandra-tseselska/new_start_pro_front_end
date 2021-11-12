@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Students Homework">
+  <title>Students Homework</title>
+  <!-- <link rel="stylesheet" href="./vendor.css"> -->
+  <link rel="stylesheet" href="./app.css">
+  <!-- <script defer src="./vendor.js"></script> -->
+  <script defer src="./app.js"></script>
+</head>
+<body>
+<ul id="students-list" class="students-list"></ul>
+<input id="add-input" type="text" placeholder="Add student">
+<button class="add-btn">[ Add ]</button>
+<script type="text/template" id="studentsListTemplate">
+  <li 
+    class="student" 
+    data-id="{{student-id}}"
+    >
+      <span class="student-name">{{studentName}}</span>
+      <button class="del-btn">[ Delete ]</button>
+      <span class="student-marks">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+        <input type="number" placeholder="0">
+      </span>
+  </li>
+</script>
+</body>
+</html>
