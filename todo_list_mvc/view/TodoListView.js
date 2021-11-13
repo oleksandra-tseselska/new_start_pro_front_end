@@ -1,13 +1,15 @@
 class TodoListView {
   static TODO_ITEM_SELECTOR = '.todo-item';
+  static EDIT_BTN_SELECTOR = '.edit-btn'
   static DELETE_BTN_SELECTOR = '.delete-btn';
   static COMPLETED = 'completed';
+  static CLASS_DONE = 'done';
 
-  #$listEl;
-  #options;
+  #$list = null;
+  #options = {};
 
   constructor(options) {
-    this.#$listEl = this.init();
+    this.#$list = this.init();
     this.#options = options;
   }
 
@@ -15,6 +17,7 @@ class TodoListView {
     return $('<ul></ul>')
       .on('click', TodoListView.TODO_ITEM_SELECTOR, (e) => this.onTodoListClick(e))
       .on('click', TodoListView.DELETE_BTN_SELECTOR, (e) => this.onDeleteBtnClick(e))
+      .on('click', TodoListView.EDIT_BTN_SELECTOR, (e) => this.onEditBtnClick(e))
   }
 
   onTodoListClick(e) {
@@ -31,38 +34,62 @@ class TodoListView {
     this.#options.onDelete(id);
   }
 
-  getTodoItemId(el) {
-    return el.closest(TodoListView.TODO_ITEM_SELECTOR)?.dataset.id;
+  onEditBtnClick(e) {
+    e.stopPropagation();
+
+    const id = this.getTodoItemId(e.target);
+
+    this.#options.onEdit(id);
   }
 
-  appendTo($el) {
-    $el.append(this.#$listEl);
+  getTodoItemId(el) {
+    const id = el.closest(TodoListView.TODO_ITEM_SELECTOR)?.dataset.id;
+
+    return id ? +id : NaN;
   }
 
   renderList(list) {
     const html = list.map(todo => this.generateTodoHtml(todo)).join('');
 
-    this.#$listEl.html(html);
+    this.#$list.html(html);
+  }
+
+  appendTo($el) {
+    $el.append(this.#$list);
   }
 
   generateTodoHtml(todo) {
-    const statusClass = todo.status === TodoListView.COMPLETED ? 'done' : '';
+    const statusClass = todo.status === TodoListView.COMPLETED ? TodoListView.CLASS_DONE : '';
 
     return `
     <li class="todo-item ${statusClass}" data-id="${todo.id}">
       ${todo.title}
-      <span class="delete-btn">[ Delete ]</span>
+      <button class="edit-btn">Edit</button>
+      <button class="delete-btn">Delete</button>
     </li>
-    `
+    `;
   }
 
-  deleteElement(id) {
-    this.#$listEl.find(`[data-id="${id}"]`).remove();
+  addElement(todo) {
+    const todoHtml = this.generateTodoHtml(todo);
+
+    this.#$list.append(todoHtml);
   }
 
-  renderElement(todo) {
-    const html = this.generateTodoHtml(todo);
+  removeElement(id) {
+    this.#$list.find(`[data-id="${id}"]`).remove();
+  }
 
-    this.#$listEl.find(`[data-id="${todo.id}"]`).replaceWith(html);
+  // renderElement(todo) {
+  //   const html = this.generateTodoHtml(todo);
+
+  //   this.#$listEl.find(`[data-id="${todo.id}"]`).replaceWith(html);
+  // }
+
+  updateElement(todo, isNew = false) {
+    const id = isNew ? '' : todo.id;
+    const todoHtml = this.generateTodoHtml(todo);
+
+    this.#$list.find(`[data-id="${id}"]`).replaceWith(todoHtml);
   }
 }

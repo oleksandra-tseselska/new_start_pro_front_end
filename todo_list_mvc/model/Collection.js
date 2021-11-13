@@ -5,38 +5,63 @@ class Collection {
   #list = [];
 
   fetch() {
-    return TodoAPI.getList().then((list) => {
-      this.setList(list);
+    return TodoAPI
+      .getList()
+      .then((list) => {
+        this.setList(list);
 
-      return this.getList();
-    })
+        return this.getList();
+    });
+  }
+
+  create(data) {
+    const item = {
+      status: Collection.PENDING,
+      ...data,
+    };
+
+    this.#list.push(item);
+
+    const loading = TodoAPI.create(item).then((res) => {
+      item.id = res.data.id;
+
+      return item;
+    });
+
+    return Promise.resolve({item, loading});
+  }
+
+  update(id, data) {
+    const item = this.get(id);
+
+    Object.keys(data).forEach(key => item[key] = data[key]);
+
+    const loading = TodoAPI.update(id, item);
+
+    return Promise.resolve({item, loading});
   }
 
   toggle(id) {
-    const todo = this.getItem(id);
+    const item = this.get(id);
 
-    if(todo.status === Collection.COMPLETED) {
-      todo.status = Collection.PENDING;
+    if (item.status === Collection.COMPLETED) {
+      item.status = Collection.PENDING;
     } else {
-      todo.status = Collection.COMPLETED
+      item.status = Collection.COMPLETED
     }
 
-    TodoAPI.update(id, todo);
-
-    return Promise.resolve();
+    return this.update(id, item);
   }
 
   delete(id) {
-    this.#list = this.#list.filter(item => item.id !== +id);
-
     TodoAPI.delete(id);
 
-    return Promise.resolve();
+    return Promise.resolve(this.getList());
   }
 
-  getItem(id) {
-    return this.#list.find(item => item.id === +id);
-  }
+  // getItem(id) {
+  //   return this.#list.find(item => item.id === +id);
+  // }
 
   setList(list) {
     this.#list = list;
@@ -44,5 +69,9 @@ class Collection {
 
   getList() {
     return this.#list;
+  }
+
+  get(id) {
+    return this.#list.find(item => item.id === +id);
   }
 }
