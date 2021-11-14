@@ -1,0 +1,13 @@
+.done {
+  background-color: rgba(0, 128, 0, 0.493);
+}
+.hidden {
+  display: none;
+}
+.todo-item {
+  margin: 5px;
+}
+.edit-btn,
+.delete-btn {
+  cursor: pointer;
+}
