@@ -1,0 +1,15 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+button {
+  cursor: pointer;
+}
+td input{
+  width: 35px;
+  margin: 0.4%;
+}
+.student-list{
+  width: 95vw;
+}
