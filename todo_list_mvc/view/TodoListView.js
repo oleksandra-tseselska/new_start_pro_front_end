@@ -80,12 +80,6 @@ class TodoListView {
     this.#$list.find(`[data-id="${id}"]`).remove();
   }
 
-  // renderElement(todo) {
-  //   const html = this.generateTodoHtml(todo);
-
-  //   this.#$listEl.find(`[data-id="${todo.id}"]`).replaceWith(html);
-  // }
-
   updateElement(todo, isNew = false) {
     const id = isNew ? '' : todo.id;
     const todoHtml = this.generateTodoHtml(todo);
