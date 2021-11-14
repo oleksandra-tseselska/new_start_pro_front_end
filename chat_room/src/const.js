@@ -1,0 +1,1 @@
+export const SOCKET = new WebSocket('wss://fep-app.herokuapp.com');
